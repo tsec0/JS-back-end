@@ -19,6 +19,8 @@ handlebarsConfig(app);
 //Route controller -> middleware / module routs controller
 app.use(homeController);
 app.use('/cubes', cubeController);
+
+// 404 Page
 app.get('*', (req, res) => {
     res.render('404');
 })
