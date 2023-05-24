@@ -3,7 +3,8 @@ const express = require('express');
 
 const expressConfig = require('./config/expressConfig'); // expressConfigurator
 const handlebarsConfig = require('./config/handlebarsConfig'); // handlebarsConfigurator
-const homeController = require('./controllers/homeController'); // routeController
+const homeController = require('./controllers/homeController'); // homeController
+const cubeController = require('./controllers/cubeController'); // cubeController
 
 const app = express();
 
@@ -17,5 +18,6 @@ handlebarsConfig(app);
 
 //Route controller -> middleware / module routs controller
 app.use(homeController);
+app.use('/cubes', cubeController);
 
 app.listen(PORT , () => console.log(`Server is running on ${PORT}...`));
