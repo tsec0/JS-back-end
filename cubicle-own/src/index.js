@@ -3,8 +3,8 @@ const express = require('express');
 
 const expressConfig = require('./config/expressConfig'); // expressConfigurator
 const handlebarsConfig = require('./config/handlebarsConfig'); // handlebarsConfigurator
-const homeController = require('./controllers/homeController'); // homeController
-const cubeController = require('./controllers/cubeController'); // cubeController
+
+const routes = require('./routes');
 
 const app = express();
 
@@ -16,13 +16,7 @@ expressConfig(app);
 // Handlebars config
 handlebarsConfig(app);
 
-//Route controller -> middleware / module routs controller
-app.use(homeController);
-app.use('/cubes', cubeController);
-
-// 404 Page
-app.get('*', (req, res) => {
-    res.render('404');
-})
+// Routes
+app.use(routes);
 
 app.listen(PORT , () => console.log(`Server is running on ${PORT}...`));
