@@ -19,5 +19,8 @@ handlebarsConfig(app);
 //Route controller -> middleware / module routs controller
 app.use(homeController);
 app.use('/cubes', cubeController);
+app.get('*', (req, res) => {
+    res.render('404');
+})
 
 app.listen(PORT , () => console.log(`Server is running on ${PORT}...`));
