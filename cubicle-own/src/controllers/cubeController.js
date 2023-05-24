@@ -14,7 +14,7 @@ router.post("/create", (req, res) => {
     description, 
     imageUrl, 
     difficultyLevel,
-} = req.body;
+    } = req.body;
 
   // res.send('Form submitted');
   cubeManager.create({
