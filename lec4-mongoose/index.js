@@ -13,9 +13,18 @@ async function connectDb(){
 
     const cats = await Cat.find({}); // returns all writes
 
-    cats.forEach(cat => cat.greet());
+    // cats.forEach(cat => cat.greet()); // instance method
+    // cats.forEach(cat => console.log(cat.info)); // virtual property
 
-    // console.log(cats);
+    console.log('The cats are:')
+    cats.forEach(cat => {
+        cat.greet(); // we can pass data trough the method
+        console.log(cat.info); // virtual property (cannot pass data)
+    });
+
+    // static model method - its an array returned
+    const result = await Cat.giveMeCats();
+    console.log(result);
 }
 
 connectDb();
