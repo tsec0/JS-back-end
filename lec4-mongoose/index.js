@@ -9,9 +9,13 @@ async function connectDb(){
 
     console.log('Db Connected successfully!');
 
-    const cats = await Cat.find();
+    // const cats = await Cat.find({name: 'Sisa', breed : 'Angora'}); // returns a specific write
 
-    console.log(cats);
+    const cats = await Cat.find({}); // returns all writes
+
+    cats.forEach(cat => cat.greet());
+
+    // console.log(cats);
 }
 
 connectDb();
