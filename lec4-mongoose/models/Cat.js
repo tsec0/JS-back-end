@@ -12,7 +12,7 @@ const catSchema = new mongoose.Schema({
     breed: String,
 });
 
-//Add method
+// Add method
 // instanse method
 // catSchema.method('greet', function(){}); -> you can do that as well
 catSchema.methods.greet = function(){ // use expression not arrow functions
@@ -26,7 +26,7 @@ catSchema.virtual('info').get(function(){
 
 // static model method
 catSchema.static('giveMeCats', function(){
-    return this.find();
+    return this.find({age: 12});
 });
 
 // Create Model
