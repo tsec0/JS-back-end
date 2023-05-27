@@ -38,15 +38,16 @@ async function connectDb() {
     //Create
     // 1.
     // const newCat = new Cat({
-    //     name: 'Zuza',
-    //     age: 10,
-    //     breed: 'Ulichna'
+    //     name: 'Zulu',
+    //     age: 5,
+    //     breed: 'Golden',
     // });
     // await newCat.save();
     // 2.
     // const newCat = await Cat.create({
-    //     name: 'Charlie',
-    //     age: 4,
+    //     name: 'Doggy',
+    //     age: 3,
+    //     color: 'white',
     //     breed: 'Dog - Samoyed',
     // });
 
@@ -85,7 +86,6 @@ async function connectDb() {
     // Find all Angora cats
     // const angora_cats = await Cat.find({breed: {$eq: 'Angora'}});
     // await Cat.find().where('breed').eq('Angora');
-
 }
 
 connectDb();
