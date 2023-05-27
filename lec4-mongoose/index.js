@@ -2,15 +2,17 @@ const mongoose = require("mongoose");
 
 const Cat = require('./models/Cat');
 
+const Person = require('./models/Person');
+
 const connectionStr = "mongodb://127.0.0.1:27017";
 
-async function connectDb(){
+async function connectDb() {
     await mongoose.connect(connectionStr + "/cats");
 
     console.log('Db Connected successfully!');
 
     // const cats = await Cat.find({name: 'Sisa', breed : 'Angora'}); // returns a specific write
-    const cats = await Cat.find({}); // returns all writes
+    // const cats = await Cat.find({}); // returns all writes
 
     // cats.forEach(cat => cat.greet()); // instance method
     // cats.forEach(cat => console.log(cat.info)); // virtual property
@@ -67,6 +69,20 @@ async function connectDb(){
     // 2.
     // finding by Id and deleting is a bulletproof way to do a remove
     // await Cat.findByIdAndDelete('6471b0dc3e2a99336be9b779');
+
+    // Create a person
+    // await Person.create({
+    //     name: 'Pesho',
+    //     age: 20,
+    // });
+
+    // Update a person
+    // await Person.findByIdAndUpdate('6471b81edf30c2c5599aceac', { $set: {name: 'Ivan', age: 18 }});
+
+    // Find all non Angora cats
+    // const non_angora_cats = await Cat.find({breed: { $ne: 'Angora' }});
+    // Find all Angora cats
+    // const angora_cats = await Cat.find({breed: {$eq: 'Angora'}});
 
 }
 
