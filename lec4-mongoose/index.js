@@ -81,8 +81,10 @@ async function connectDb() {
 
     // Find all non Angora cats
     // const non_angora_cats = await Cat.find({breed: { $ne: 'Angora' }});
+    // await Cat.find().where('breed').ne('Angora');
     // Find all Angora cats
     // const angora_cats = await Cat.find({breed: {$eq: 'Angora'}});
+    // await Cat.find().where('breed').eq('Angora');
 
 }
 
