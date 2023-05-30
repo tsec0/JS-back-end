@@ -23,13 +23,16 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/:cubeId/details", async (req, res) => {
-  const cube = await cubeManager.getOne(req.params.cubeId);
+  // .lean() can be added here -> it is a querry to be used for
+  // -> .lean() -> {materialize} to plain object
+  // than await
+  const cube = await cubeManager.getOne(req.params.cubeId).lean();
 
   if(!cube){
     return res.redirect('/404');
   }
 
-  res.render("details", { ...cube }); // { cube }
+  res.render("details", { cube });
 });
 
 module.exports = router;

@@ -1,30 +1,10 @@
 const Cube = require('../models/Cube');
 
-const { request } = require('express');
-const uniqid = require('uniqid');
-// const db = require('../db.json');
-const cubes = [
-    {
-        id: '2yvdusli1ncvnq',
-        name: '1',
-        description: '2',
-        imageUrl: '3',
-        difficultyLevel: 3
-    },
-
-    {
-        id: '3yvdusli1ncvnq',
-        name: '1',
-        description: '2',
-        imageUrl: '4',
-        difficultyLevel: 4
-    }
-];
-
 // exports.getAll = () => db.cubes.slice();
-exports.getAll = (search, from, to) => {
-    let result = cubes.slice();
+exports.getAll = async (search, from, to) => {
+    let result = await Cube.find().lean();
 
+    // TODO: use mongoose to filter in the db
     if(search){
         result = result.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()));
     }
@@ -40,7 +20,10 @@ exports.getAll = (search, from, to) => {
     return result;
 };
 
-exports.getOne = (cubeId) => Cube.findById(cubeId); // await is not needed here
+// await is not needed here; returns a query from doc
+// this is a request ; query generation
+exports.getOne = (cubeId) => Cube.findById(cubeId);
+
 
 // cubeData = {name, description, difficultyLevel, imageUrl};
 exports.create = async (cubeData) => {
