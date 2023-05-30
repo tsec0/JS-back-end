@@ -24,7 +24,7 @@ handlebarsConfig(app);
 // Routes
 app.use(routes);
 
-// Data Base Connection
+// Data Base Connection with error
 dbConnect()
     .then(() => { console.log('DB connected sucessfully!') })
     .catch(err => { console.log('DB error: ', err); });

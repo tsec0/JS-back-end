@@ -6,6 +6,4 @@ async function dbConnect(){
     await mongoose.connect(uri); // no options added
 }
 
-// add listener for mistakes
-
 module.exports = dbConnect;

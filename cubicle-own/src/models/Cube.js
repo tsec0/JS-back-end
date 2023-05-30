@@ -9,4 +9,6 @@ const cubeSchema = new mongoose.Schema({
 
 const Cube = mongoose.model('Cube', cubeSchema);
 
-module.exports = Cube;
+module.exports = Cube; // for debugging purposes
+
+//module.exports = mongoose.model('Cube', cubeSchema);

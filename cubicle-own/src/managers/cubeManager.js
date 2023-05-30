@@ -1,3 +1,6 @@
+const Cube = require('../models/Cube');
+
+const { request } = require('express');
 const uniqid = require('uniqid');
 // const db = require('../db.json');
 const cubes = [
@@ -37,17 +40,13 @@ exports.getAll = (search, from, to) => {
     return result;
 };
 
-exports.getOne = (cubeId) => cubes.find(x => x.id == cubeId);
+exports.getOne = (cubeId) => Cube.findById(cubeId); // await is not needed here
 
 // cubeData = {name, description, difficultyLevel, imageUrl};
-exports.create = (cubeData) => {
-    const newCube = {
-        id: uniqid(),
-        ...cubeData, // spread the received variables (and values) in the received cubeData
-    };
+exports.create = async (cubeData) => {
+    const cube = new Cube(cubeData);
 
-    // db.cubes.push(newCube);
-    cubes.push(newCube);
+    await cube.save();
 
-    return newCube;
+    return cube;
 }
