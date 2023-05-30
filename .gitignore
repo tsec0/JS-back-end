@@ -2,3 +2,4 @@ lec1/node_modules
 cubicle-own/node_modules
 lec4-mongodb/node_modules
 lec4-mongoose/node_modules
+*.zip
