@@ -1,6 +1,5 @@
 const Cube = require('../models/Cube');
 
-// exports.getAll = () => db.cubes.slice();
 exports.getAll = async (search, from, to) => {
     let result = await Cube.find().lean();
 
@@ -27,9 +26,9 @@ exports.getOne = (cubeId) => Cube.findById(cubeId);
 
 // cubeData = {name, description, difficultyLevel, imageUrl};
 exports.create = async (cubeData) => {
-    const cube = new Cube(cubeData);
+    const cube = new Cube(cubeData); // document -> not clean js object
 
     await cube.save();
 
     return cube;
-}
+};
