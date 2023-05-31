@@ -23,7 +23,7 @@ exports.getAll = async (search, from, to) => {
 // this is a request ; query generation
 // check if field has reference (and make request to existing writes)
 exports.getOne = (cubeId) => Cube.findById(cubeId).populate('accessories'); 
-exports.getOneWithAccessories = (cubeId) => this.getOne(cubeId).populate('accessories');
+exports.getOneWithAccessories = (cubeId) => this.getOne(cubeId).populate('accessories'); // referes to getOne -> this
 
 // cubeData = {name, description, difficultyLevel, imageUrl};
 exports.create = async (cubeData) => {
