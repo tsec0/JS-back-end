@@ -21,8 +21,9 @@ exports.getAll = async (search, from, to) => {
 
 // await is not needed here; returns a query from doc
 // this is a request ; query generation
-exports.getOne = (cubeId) => Cube.findById(cubeId);
-
+// check if field has reference (and make request to existing writes)
+exports.getOne = (cubeId) => Cube.findById(cubeId).populate('accessories'); 
+exports.getOneWithAccessories = (cubeId) => this.getOne(cubeId).populate('accessories');
 
 // cubeData = {name, description, difficultyLevel, imageUrl};
 exports.create = async (cubeData) => {
