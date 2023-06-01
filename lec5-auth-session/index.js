@@ -1,12 +1,19 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
 const { v4: uuid } = require('uuid');
 
 const app = express();
 
-const session = {};
-
 app.use(cookieParser()); // middleware
+app.use(expressSession({
+        secret: 'my secret',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            secure: false,
+        }
+}))
 
 app.get('/', (req, res) => {
     // let id -> because we use the id later in the .get() scope and we set unique cookie to the id
@@ -17,12 +24,10 @@ app.get('/', (req, res) => {
 
     if(userId){
         id = userId;
-        console.log('User secret: ', session[userId].secret);
+        console.log('User secret: ', req.session.secret);
     } else {
         id = uuid();
-        session[id] = {
-            secret: 'my secret',
-        }
+        req.session.secret = `some secret - ${id}`;
         res.cookie('userId', id);
     }
 
