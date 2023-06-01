@@ -5,7 +5,8 @@ const { v4: uuid } = require('uuid');
 
 const app = express();
 
-app.use(cookieParser()); // middleware
+// middleware
+app.use(cookieParser()); 
 app.use(expressSession({
         secret: 'my secret',
         resave: false,
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
     } else {
         id = uuid();
         req.session.secret = `some secret - ${id}`;
-        res.cookie('userId', id);
+        res.cookie('userId', id, { httpOnly: true }); // cookie not visible -> secure
     }
 
     res.send(`Hello Express - ${id}`);
