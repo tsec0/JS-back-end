@@ -1,22 +1,24 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const { v4: uuid } = require('uuid');
 
 const app = express();
-
-app.use(cookieParser()); // middleware
 
 app.get('/', (req, res) => {
     // let id -> because we use the id later in the .get() scope and we set unique cookie to the id
     // in that way tyhe browser wont set again another cookie
     let id = uuid(); 
 
-    const userId = req.cookies['userId'];
+    // Cookies
+    // console.log(req.header('Cookie'));
+    // console.log(req.headers['cookie']); // http comunication
 
-    if(userId){
-        id = userId;
+    const cookie = req.header('Cookie');
+
+    if(cookie){
+        const [key, value] = cookie.split('=');
+        id = value;
     } else {
-        res.cookie('userId', id);
+        res.header('Set-Cookie', `userId=${id}`);
     }
 
     res.send(`Hello Express - ${id}`);
