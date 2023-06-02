@@ -31,8 +31,9 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
+
     const salt = await bcrypt.genSalt(11); // the nuber depends on the hardware 
-    const hash = await bcrypt.hash(password, salt);
+    const hash = await bcrypt.hash(password, salt); // the passwprd is hashed
     
     users[username] = {
         password: hash,
