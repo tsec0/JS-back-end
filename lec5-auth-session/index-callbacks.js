@@ -1,9 +1,10 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { v4: uuid } = require('uuid');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
+const secret = 'SomeSortOfSecret!';
 
 // middleware
 app.use(cookieParser());
@@ -12,9 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 const users = {};
 
 app.get('/', (req, res) => {
-    console.log(users);
-
-    res.send('Okay, we have users!');
+    res.send('Hello');
 });
 
 app.get('/register', (req, res) => {
@@ -31,13 +30,10 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-
     const salt = await bcrypt.genSalt(11); // the nuber depends on the hardware 
     const hash = await bcrypt.hash(password, salt); // the passwprd is hashed
     
-    users[username] = {
-        password: hash,
-    };
+    users[username] = { password: hash };
 
     res.redirect('/login');
 })
@@ -56,16 +52,44 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    
     const hash = users[username]?.password; // is there a username with password
     const isValid = await bcrypt.compare(password, hash);
 
     if(isValid){
-        res.send('Successfully logged in!');
-        console.log(`Hash: ${hash}`);
+        // generate JWT token
+        const payload = { username }
+        jwt.sign(payload, secret, { expiresIn: '2d' }, (err, token) => {
+            if(err){
+                return res.redirect('/404');
+            }
+
+            // Set jwt token as cookie
+            res.cookie('token', token);
+            res.redirect('/profile');
+        }); // async generation - we use a callback = (err, token) => {}
     } else {
-        res.send('Unauthorised');
+        res.status(401).send('Unauthorised');
+        res.redirect('/login');
     }
+});
+
+app.get('/profile', (req, res) => {
+    // Get token from cookie
+    const token = req.cookies['token'];
+
+    // verify token
+    if(token){
+        jwt.verify(token, secret, (err, payload) => { // the payload is the decoded token!
+            if(err){
+                return res.status(401).send('Unauthorised!');
+            }
+            // allow request if valid
+            return res.send(`Profile: ${payload.username}`);
+        });
+    }
+
+    // redirect to page if unauthoorised or invalid token
+    res.redirect('/login');
 });
 
 app.listen(5000, () => console.log('Serrver is listening on port 5000...'));
