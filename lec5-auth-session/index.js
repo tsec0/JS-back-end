@@ -86,10 +86,10 @@ app.get('/profile', async (req, res) => {
         } catch(err){
             res.status(401).send('Unauthorised!');
         }
+    } else {
+        // redirect to page if unauthoorised or invalid token
+        res.redirect('/login');
     }
-    
-    // redirect to page if unauthoorised or invalid token
-    res.redirect('/login');
 });
 
 app.listen(5000, () => console.log('Serrver is listening on port 5000...'));
