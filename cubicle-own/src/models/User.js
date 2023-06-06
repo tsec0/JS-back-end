@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     username: String,
     password: {
         type: String,
         // validation inside model / model level validation
-        // validate: {
-        //     validator: function(value) {
-        //         return this.repeatPassword === value;
-        //     },
-        //     message: `Password missmatch!`
-        // }
+        
     }, // needs to be hashed
 });
 
@@ -22,6 +18,13 @@ userSchema.virtual('repeatPassword')
             throw new mongoose.MongooseError('Password missmatch!');
         }
     });
+
+// next is used for async functions
+userSchema.pre('save', async function(){
+    const hash = await bcrypt.hash(this.password, 10);
+
+    this.password  = hash;
+});
 
 const User = mongoose.model('User', userSchema);
 
