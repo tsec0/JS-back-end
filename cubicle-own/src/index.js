@@ -21,13 +21,13 @@ expressConfig(app);
 // Handlebars config
 handlebarsConfig(app);
 
-// Routes
-app.use(routes);
-
 // Data Base Connection with error
 dbConnect()
     .then(() => { console.log('DB connected sucessfully!') })
     .catch(err => { console.log('DB error: ', err); });
+
+// Routes
+app.use(routes);
 
 // Listening
 app.listen(PORT, () => console.log(`Server is running on ${PORT}...`));
