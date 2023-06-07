@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const router = require('../controllers/userController');
 
 const userSchema = new mongoose.Schema({
     username: String,
@@ -9,6 +10,10 @@ const userSchema = new mongoose.Schema({
         
     }, // needs to be hashed
 });
+
+// validate if user exists
+
+
 
 // repeatPassword should not be saved in the db
 // using virtuals - its written in the doc but not in the db
