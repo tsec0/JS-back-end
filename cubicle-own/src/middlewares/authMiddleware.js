@@ -8,7 +8,7 @@ exports.auth = async (req, res, next) => {
     const token = req.cookies['token/auth'];
     if(token){
         try {
-            const user = await jwt.verify(token, SECRET);
+            const user = await jwt.verify(token, SECRET); // decoded token or payload
 
             req.user = user;
 
