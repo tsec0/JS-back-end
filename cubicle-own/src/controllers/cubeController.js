@@ -6,8 +6,7 @@ const accessoryManager = require("../managers/accessoryManager");
 // URL -> Path /cubes/create
 router.get("/create", (req, res) => {
   // console.log(req.user); // has been passed by the middleware
-
-  res.render("create");
+  res.render("cube/create");
 });
 
 router.post("/create", async (req, res) => {
@@ -35,7 +34,7 @@ router.get('/:cubeId/details', async (req, res) => {
     return res.redirect('/404');
   }
 
-  res.render('details', { cube });
+  res.render('cube/details', { cube });
 });
 
 router.get('/:cubeId/attach-accessory', async (req, res) => {
@@ -53,6 +52,14 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
   await cubeManager.attachAccessory(cubeId, accessoryId);
 
   res.redirect(`/cubes/${cubeId}/details`);
+});
+
+router.get('/:cubeId/delete', async (req, res) => {
+  // give info in the page
+  const cube = await cubeManager.getOne(req.params.cubeId).lean(); // this is a document -> turn it to objec
+
+  // pass the cube to the view
+  res.render('cube/delete', { cube });
 });
 
 module.exports = router;
