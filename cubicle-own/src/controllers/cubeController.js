@@ -5,6 +5,8 @@ const accessoryManager = require("../managers/accessoryManager");
 
 // URL -> Path /cubes/create
 router.get("/create", (req, res) => {
+  // console.log(req.user); // has been passed by the middleware
+
   res.render("create");
 });
 
