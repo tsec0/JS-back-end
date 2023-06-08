@@ -28,7 +28,7 @@ router.post("/create", async (req, res) => {
 
 router.get('/:cubeId/details', async (req, res) => {
   // .lean() can be added here -> it is a querry to be used for
-  // -> .lean() -> {materialize} to plain object
+  // -> .lean() -> { materialize } to plain object
   // than await
   const cube = await cubeManager.getOneWithAccessories(req.params.cubeId).lean();
 
@@ -36,7 +36,10 @@ router.get('/:cubeId/details', async (req, res) => {
     return res.redirect('/404');
   }
 
-  res.render('cube/details', { cube });
+  // view data is passed trough the render function
+  const isOwner = cube.owner?.toString() === req.user._id;
+
+  res.render('cube/details', { cube, isOwner });
 });
 
 router.get('/:cubeId/attach-accessory', async (req, res) => {
