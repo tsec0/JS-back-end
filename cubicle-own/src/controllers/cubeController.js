@@ -83,7 +83,7 @@ function getDifficultyOptionsViewData(difficultyLevel){
     const options = titles.map((title, index) => ({
       title: `${index + 1} - ${title}`,
       value: index + 1,
-      selected: Number(difficultyLevel) === index + 1,
+      selected: Number(difficultyLevel) === index + 1 ? 'selected' : "",
     }));
 
     return options;
