@@ -69,11 +69,33 @@ router.post('/:cubeId/delete', async (req, res) => {
   res.redirect('/');
 });
 
+// get the selected difficulty option / it is a view data
+function getDifficultyOptionsViewData(difficultyLevel){
+    const titles = [
+      "Very Easy",
+      "Easy",
+      "Medium (Standard 3x3)",
+      "Intermediate",
+      "Expert",
+      "Hardcore",
+    ];
+
+    const options = titles.map((title, index) => ({
+      title: `${index + 1} - ${title}`,
+      value: index + 1,
+      selected: Number(difficultyLevel) === index + 1,
+    }));
+
+    return options;
+}
+
 router.get('/:cubeId/edit', async (req, res) => {
   // visualize data
   const cube = await cubeManager.getOne(req.params.cubeId).lean();
 
-  res.render('cube/edit', { cube });
+  const options = getDifficultyOptionsViewData(cube.difficultyLevel);
+
+  res.render('cube/edit', { cube, options });
 });
 
 router.post('/:cubeId/edit', async (req, res) => {
