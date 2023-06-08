@@ -3,6 +3,8 @@ const router = require("express").Router();
 const cubeManager = require("../managers/cubeManager");
 const accessoryManager = require("../managers/accessoryManager");
 
+const { getDifficultyOptionsViewData } = require('../utils/viewHelper');
+
 // URL -> Path /cubes/create
 router.get("/create", (req, res) => {
   // console.log(req.user); // has been passed by the middleware
@@ -58,8 +60,11 @@ router.get('/:cubeId/delete', async (req, res) => {
   // give info in the page
   const cube = await cubeManager.getOne(req.params.cubeId).lean(); // this is a document -> turn it to objec
 
-  // pass the cube to the view
-  res.render('cube/delete', { cube });
+  // use view helper here for options
+  const options = getDifficultyOptionsViewData(cube.difficultyLevel);
+
+  // pass the cube and options to the view
+  res.render('cube/delete', { cube, options });
 });
 
 router.post('/:cubeId/delete', async (req, res) => {
@@ -68,26 +73,6 @@ router.post('/:cubeId/delete', async (req, res) => {
 
   res.redirect('/');
 });
-
-// get the selected difficulty option / it is a view data
-function getDifficultyOptionsViewData(difficultyLevel){
-    const titles = [
-      "Very Easy",
-      "Easy",
-      "Medium (Standard 3x3)",
-      "Intermediate",
-      "Expert",
-      "Hardcore",
-    ];
-
-    const options = titles.map((title, index) => ({
-      title: `${index + 1} - ${title}`,
-      value: index + 1,
-      selected: Number(difficultyLevel) === index + 1 ? 'selected' : "",
-    }));
-
-    return options;
-}
 
 router.get('/:cubeId/edit', async (req, res) => {
   // visualize data

@@ -11,7 +11,8 @@
             <label for="difficulty">Difficulty</label>
             <select id="difficulty" name="difficultyLevel"/>
                 {{#each options}}
-                    <option value="{{value}}" {{selected}}>{{title}}</option>
+                    {{!-- a helper may be suitable here --}}
+                    <option value="{{value}}" {{#if selected}}selected{{/if}}>{{title}}</option> 
                 {{/each}}
             </select>
             <input type="submit" value="Edit">
