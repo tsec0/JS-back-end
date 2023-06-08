@@ -17,7 +17,7 @@ router.get('/:cubeId/details', async (req, res) => {
   }
 
   // view data is passed trough the render function
-  const isOwner = cube.owner?.toString() === req.user._id;
+  const isOwner = cube.owner?.toString() === req.user?._id;
 
   res.render('cube/details', { cube, isOwner });
 });
@@ -85,7 +85,7 @@ router.get('/:cubeId/edit', isAuthed, async (req, res) => {
   const cube = await cubeManager.getOne(req.params.cubeId).lean();
 
   // security features for not an authorised edit -> edit , delete, create, ... shgould be separate func
-  if(cube.owner.toString() !== req.user._id){
+  if(cube.owner.toString() !== req.user?._id){
     return res.redirect('/404');
   }
   const options = getDifficultyOptionsViewData(cube.difficultyLevel);
