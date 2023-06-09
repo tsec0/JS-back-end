@@ -3,4 +3,5 @@ cubicle-own/node_modules
 lec4-mongodb/node_modules
 lec4-mongoose/node_modules
 lec5-auth-session/node_modules
+lec6-validation-and-err/node_modules
 *.zip
