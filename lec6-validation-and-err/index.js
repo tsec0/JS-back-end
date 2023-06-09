@@ -21,17 +21,22 @@ app.get('/', (req, res) => {
         <label for="password">Password:</label>
         <input type="password" name="password" id="password">
 
+        <label for="Email">Email:</label>
+        <input type="email" name="email" id="email">
+
         <input type="submit" value="Validate">
     </form>`);
 });
 
-const bodyPasswordValidation = body('password').isLength({ min: 3, max: 20 }).withMessage('Invalid password');
+const bodyPasswordValidation = body('password').isLength({ min: 3, max: 20 }).withMessage('Invalid password').trim();
+const bodyEmailValidator = body('email').isEmail().normalizeEmail();
 
 app.post('/', 
     validateName, 
     bodyPasswordValidation,
+    bodyEmailValidator,
     (req, res) => {
-        const { name, age, password } = req.body;
+        const { name, age, password, email } = req.body;
 
         if(!isAgeValid(age)){
             return res.send('Invalid age!');
@@ -47,8 +52,8 @@ app.post('/',
         //     return res.send('Weak password');
         // }
 
-        console.log(name, age);
-        res.send('Successfull');
+        console.log(name, age, email);
+        res.send('Successfull' + ' ' + email);
     }
 );
 
