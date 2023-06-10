@@ -7,9 +7,7 @@ const accessoryManager = require("../managers/accessoryManager");
 const { getDifficultyOptionsViewData } = require('../utils/viewHelper');
 
 router.get('/:cubeId/details', async (req, res) => {
-  // .lean() can be added here -> it is a querry to be used for
-  // -> .lean() -> { materialize } to plain object
-  // than await
+  // .lean() can be added here -> it is a querry to be used for -> .lean() -> { materialize } to plain object
   const cube = await cubeManager.getOneWithAccessories(req.params.cubeId).lean();
 
   if(!cube){
@@ -17,8 +15,12 @@ router.get('/:cubeId/details', async (req, res) => {
   }
 
   // view data is passed trough the render function
-  const isOwner = cube.owner?.toString() === req.user?._id;
-
+  let isOwner = false;
+  const hasOwner = typeof cube.owner?.toString() === "string";
+  if(hasOwner){
+    isOwner = cube.owner?.toString() === req.user?._id;
+  }
+  
   res.render('cube/details', { cube, isOwner });
 });
 
@@ -26,7 +28,7 @@ router.get('/:cubeId/details', async (req, res) => {
 
 // URL -> Path /cubes/create
 router.get("/create", isAuthed, (req, res) => {
-  // console.log(req.user); // user has been passed by the middleware
+  // console.log(req.user);
   res.render("cube/create");
 });
 
