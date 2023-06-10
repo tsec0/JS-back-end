@@ -1,29 +1,30 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const router = require('../controllers/userController');
 
 // mongoose Schema
 const userSchema = new mongoose.Schema({
     // validate if user exists -> unique
     username: {
         type: String,
-        required: [true, 'Username is required'],
-        minLength: [5, 'Username length is short!'],
-        match: [/^[A-Za-z0-9]+$/, 'Username must be alphanumeric'],
-        uniqe: true,
-        maxLength: 20,
+        required: [true, 'Username is required!'],
+        minLength: [3, 'Username length is too short!'],
+        match: [/^[A-Za-z0-9]+$/, 'Username must be alphanumeric!'],
+        uniqe: {
+            value: true,
+            message: "Username has already been taken!",
+        },
+        maxLength: [20, 'Username length is too long!'],
     },
     password: {
         type: String,
         // validation inside model / model level validation
+        required: [true, 'Password is required!'],
         validate: {
             validator: function(value){
-                //return this.repeatPassword === value;
                 return /^[A-Za-z0-9]+$/.test(value);
             },
-            message: `Invalid password characters!`,
+            message: 'Invalid password characters!'
         },
-        required: true,
         minLength: [8, 'Password length is short!'],
     }, // needs to be hashed
 });
@@ -33,11 +34,10 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('repeatPassword')
     .set(function(value) {
         if (value !== this.password) {
-            throw new mongoose.MongooseError('Password missmatch!');
+            throw new Error('Password missmatch!');
         }
     });
 
-// next is used for async functions
 userSchema.pre('save', async function(){
     const hash = await bcrypt.hash(this.password, 10);
 

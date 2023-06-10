@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const userManager = require('../managers/userManager');
 
+const { extractErrorMessages } = require('../utils/errorHelper');
+
 // render the html page
 router.get('/register', (req, res) => {
     res.render('users/register');
@@ -12,9 +14,14 @@ router.post('/register', async (req, res) => {
     const { username, password, repeatPassword } = req.body;
 
     // a user manager will be created for validating passwords or smth else
-    await userManager.register({ username, password, repeatPassword });
-
-    res.redirect('/users/login');
+    try {
+        await userManager.register({ username, password, repeatPassword });
+        res.redirect('/users/login');
+    } catch(err){
+        // expected error
+        const errorMessages = extractErrorMessages(err);
+        res.status(404).render('users/register', { errorMessages });
+    }
 });
 
 router.get('/login', (req, res) => {
@@ -24,11 +31,17 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res)=> {
     const { username, password } = req.body;
 
-    const token = await userManager.login(username, password); // cannot continue if not resolved successfully
+    try { 
+        const token = await userManager.login(username, password); // cannot continue if not resolved successfully
+        res.cookie('token/auth', token, { httpOnly: true });
+        res.redirect('/');
 
-    res.cookie('token/auth', token, { httpOnly: true });
-
-    res.redirect('/');
+    } catch(err){
+        // expected error
+        // next(err) -> it means the middleware has to recycle the error
+        const errorMessages = extractErrorMessages(err);
+        res.status(404).render('users/login', { errorMessages });
+}
 });
 
 router.get('/logout', (req, res) => {
