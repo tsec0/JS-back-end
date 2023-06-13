@@ -37,3 +37,12 @@
 7. Add database
     7.1 install mongoose
     7.2 connect database
+
+8. Authentication
+    8.1 add auth user controller
+    8.2 add controller to routes
+    8.3 fix header navigation to login and register
+        8.3.1 home
+        8.3.2 login
+        8.3.3 register
+    8.4 render login page
