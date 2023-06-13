@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
 const { auth } = require('./middlewares/authMiddleware');
+const { errorHandler } = require('./middlewares/errorHandlerMiddleware');
 const routes = require('./routes');
 
 const app = express();
@@ -35,6 +36,9 @@ app.use(auth);
 
 // router set up
 app.use(routes);
+
+// behind the routes -> because of next()
+app.use(errorHandler);
 
 // server listening
 app.listen(PORT, console.log(mesage_log));

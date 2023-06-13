@@ -19,14 +19,7 @@ exports.login = async (username, password) => {
         throw new Error('Invalid user or password');
     }
 
-    // generate token
-    const payload = {
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-    };
-
-    const token = await jwt.sign(payload, SECRET, { expiresIn: '1d' }); // expiresIn: -> is not needed
+    const token = await generateToken(user);
 
     return token;
 };
@@ -38,5 +31,22 @@ exports.register = async (registerData) => {
         throw new Error('Username already exists!');
     }
 
-    return User.create(registerData);
+    const createdUser = await User.create(registerData);
+    
+    const token = await generateToken(createdUser);
+
+    return token;
 };
+
+async function generateToken(user){
+     // generate token
+     const payload = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+    };
+
+    const token = await jwt.sign(payload, SECRET, { expiresIn: '1d' }); // expiresIn: -> is not needed
+
+    return token;
+}
