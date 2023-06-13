@@ -17,4 +17,11 @@
 5. Add view engine
     5.1 set up express handlebars
         5.1.1 install express handlebars -> npm install express-handlebars
-    5.2 add to express
+    5.2 add to express -> modify index.js
+    5.3 configure engine
+    5.4 configure views folder (only for src)
+    5.5 set up main layout
+    5.6 add partials folder
+        5.6.1 render home page
+        5.6.2 fix stylesheet and images -> const path = require('path');
+6. Add controllers folder with home controller folder
