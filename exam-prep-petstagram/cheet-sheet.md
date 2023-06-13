@@ -93,3 +93,5 @@
     * create secret
     * set cookie with token
 
+18. Log out
+
