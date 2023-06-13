@@ -9,9 +9,11 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
-    await userManager.login({ username, password });
+    const token = await userManager.login(username, password);
 
-    res.send('Logged in');
+    res.cookie('token', token); // set cookie in response
+
+    res.redirect('/');
 
 });
 
@@ -24,7 +26,7 @@ router.post('/register', async (req, res) => {
 
     await userManager.register({ username, email, password, repeatPassword });
 
-    res.send('Registered');
+    res.redirect('/users/login');
 
 });
 

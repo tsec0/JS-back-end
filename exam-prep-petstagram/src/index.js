@@ -3,6 +3,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 const routes = require('./routes');
 
@@ -27,6 +28,7 @@ app.set('views', 'src/views');
 // express middleware setup
 app.use(express.static(path.resolve(__dirname, 'public'))); // static(.css; images) file folder -> public
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // router set up
 app.use(routes);

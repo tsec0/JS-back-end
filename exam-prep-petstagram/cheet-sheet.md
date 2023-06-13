@@ -84,5 +84,12 @@
 16. Generate token
     * install jsonwebtoken
     * promisify jsonwebtoken (optional)
+    * create secret
+    * generate token in manager.login
 
+17. Return token in cookie
+    * install cookie parser
+    * config cookie parser
+    * create secret
+    * set cookie with token
 
