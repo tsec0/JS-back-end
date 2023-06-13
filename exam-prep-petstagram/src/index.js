@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
+const { auth } = require('./middlewares/authMiddleware');
 const routes = require('./routes');
 
 const app = express();
@@ -29,6 +30,8 @@ app.set('views', 'src/views');
 app.use(express.static(path.resolve(__dirname, 'public'))); // static(.css; images) file folder -> public
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//should be after the cookie parser
+app.use(auth);
 
 // router set up
 app.use(routes);

@@ -94,4 +94,10 @@
     * set cookie with token
 
 18. Log out
-
+19. Authentication middleware
+    * create base middleware
+    * use middleware
+    * implement
+    * attach decoded token to request
+    * handle invalid token
+20. Dynamic navigation
