@@ -59,9 +59,9 @@
 
 11. Modify login and register
     * we dont need the action because action posts on the same page 
-    if we want to post on the same page and another route
-    the action equals the route we want to go 
-    and the data can be caught in the router behind the server
+    * if we want to post on the same page and another route
+    * the action equals the route we want to go 
+    * and the data can be caught in the router behind the server
 
 12. Add login and register post actions
     * pass in ass object user login and register data
@@ -94,10 +94,25 @@
     * set cookie with token
 
 18. Log out
+
 19. Authentication middleware
     * create base middleware
     * use middleware
     * implement
     * attach decoded token to request
     * handle invalid token
+
 20. Dynamic navigation
+    * add conditional in main layout
+    * add res.locals
+
+21. Error handling
+    * add 404 page
+    * redirect missing route to 404
+    * add global error handler (optional)
+    * add error message extractor
+
+22. Show error notifications
+    * add error container to main layout
+    * show error constainer conditionally
+    * add error to render
