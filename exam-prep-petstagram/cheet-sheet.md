@@ -46,3 +46,43 @@
         8.3.2 login
         8.3.3 register
     8.4 render login page
+    8.5 add unique index for username
+
+9. Add user model
+    9.1 folder model -> User.js
+
+10. Add user manager
+    * folder managers -> userManager.js
+    * add login and register methods (empty)
+    * validate repeat password
+    * validate if user already exists
+
+11. Modify login and register
+    * we dont need the action because action posts on the same page 
+    if we want to post on the same page and another route
+    the action equals the route we want to go 
+    and the data can be caught in the router behind the server
+
+12. Add login and register post actions
+    * pass in ass object user login and register data
+
+13. Implement user login and register
+    * require in user controller
+    * add register method
+    * add login method
+
+14. Hash password
+    * install bcrypt
+    * set-up bcrypt
+    * hash password
+    * validate hash password
+
+15. Login
+    * Find user by username
+    * Validate password with hash
+
+16. Generate token
+    * install jsonwebtoken
+    * promisify jsonwebtoken (optional)
+
+
