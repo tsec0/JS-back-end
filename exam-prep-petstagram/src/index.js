@@ -1,12 +1,17 @@
-// console.log("Server started!");
+// require packages
 const express = require('express');
 const handlebars = require('express-handlebars');
-
 const path = require('path');
+const mongoose = require('mongoose');
 
 const routes = require('./routes');
 
 const app = express();
+
+// mongoose connect -> change db name
+mongoose.connect(`mongodb://127.0.0.1:27017/petstagram`) // returns promise
+    .then(() => console.log('DB connected successfully'))
+    .catch(err => console.log('DB error', err.message));
 
 // port and massage for listening
 const PORT = 5000; // listening port
