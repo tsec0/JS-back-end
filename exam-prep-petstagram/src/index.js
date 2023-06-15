@@ -17,7 +17,7 @@ mongoose.connect(`mongodb://127.0.0.1:27017/petstagram`) // returns promise
     .catch(err => console.log('DB error', err.message));
 
 // port and massage for listening
-const PORT = 5000; // listening port
+const PORT = 3000; // listening port
 const mesage_log = 'Server is listening on port 5000...'; // message after starting server
 
 // configure views
@@ -38,7 +38,7 @@ app.use(auth);
 app.use(routes);
 
 // behind the routes -> because of next()
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // server listening
 app.listen(PORT, console.log(mesage_log));

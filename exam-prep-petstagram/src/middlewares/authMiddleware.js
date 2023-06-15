@@ -11,7 +11,7 @@ exports.auth = async (req, res, next) => {
             // for valid token and the log-in is valid
             req.user = decodedToken;
             res.locals.user = decodedToken;
-            res.locals.isAuthenticated = true;
+            res.locals.isAuthenticated = true; // accessible for all views
 
             next(); // call the next middleware
         } catch(err){
