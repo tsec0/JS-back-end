@@ -7,9 +7,9 @@ const photoController = require('./controllers/photoController');
 
 router.use(homeController); // it is not needed to add '/home' just http://localhost:5000/
 router.use('/users', userController); // here we need the /users to load http://localhost:5000/users
-router.use('/photos', photoController);// load view for catalog
-// router.get('*', (req, res) => {
-//     res.redirect('/404');
-// });
+router.use('/photos', photoController);// load view for catalog - /photos http://localhost:5000/photos
+router.get('*', (req, res) => {
+    res.redirect('/404');
+});
 
 module.exports = router;

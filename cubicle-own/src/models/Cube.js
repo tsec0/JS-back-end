@@ -5,6 +5,7 @@ const cubeSchema = new mongoose.Schema({
     description: String,
     imageUrl: String,
     difficultyLevel: Number,
+    // Two referrances
     accessories: [{ // many to many pairs -> [] ; 1 to many -> no []
         type: mongoose.Types.ObjectId,
         ref: 'Accessory',
