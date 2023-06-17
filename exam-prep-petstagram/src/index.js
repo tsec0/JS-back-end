@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 
+// middleware import and set up
 const { auth } = require('./middlewares/authMiddleware');
 const { errorHandler } = require('./middlewares/errorHandlerMiddleware');
 const routes = require('./routes');

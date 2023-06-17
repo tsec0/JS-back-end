@@ -38,7 +38,16 @@
     7.1 install mongoose
     7.2 connect database
 
-8. Authentication
+8. Add user model
+    9.1 folder model -> User.js
+
+9. Add user manager
+    * folder managers -> userManager.js
+    * add login and register methods (empty)
+    * validate repeat password
+    * validate if user already exists
+
+10. Authentication
     8.1 add auth user controller
     8.2 add controller to routes
     8.3 fix header navigation to login and register
@@ -47,15 +56,6 @@
         8.3.3 register
     8.4 render login page
     8.5 add unique index for username
-
-9. Add user model
-    9.1 folder model -> User.js
-
-10. Add user manager
-    * folder managers -> userManager.js
-    * add login and register methods (empty)
-    * validate repeat password
-    * validate if user already exists
 
 11. Modify login and register
     * we dont need the action because action posts on the same page 
@@ -88,7 +88,7 @@
     * generate token in manager.login
 
 17. Return token in cookie
-    * install cookie parser
+    * npm install cookie-parser
     * config cookie parser
     * create secret
     * set cookie with token
